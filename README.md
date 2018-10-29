@@ -78,4 +78,34 @@ $ docker logs c901974b3a10
 starting services: orders_service
 Connected to amqp://guest:**@rabbitmq:5673//
 ```
+```
+davar@home ~/LABS/microservices-in-action/chapter7-k8s $ cat gateway-service.yaml 
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.1.0 (36652f6)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: gateway
+  name: gateway
+spec:
+  type: NodePort
+  ports:
+  - name: "5001"
+    port: 5001
+    targetPort: 5000
+    nodePort: 30623
+  selector:
+    io.kompose.service: gateway
+status:
+  loadBalancer: {}
 
+  480  kubectl delete svc/gateway
+  481  kubectl create -f gateway-service.yaml 
+
+
+davar@home ~/LABS/microservices-in-action/chapter7-k8s $ curl -X POST http://`minikube ip`:30623/shares/sell -H 'cache-control: no-cache' -H 'content-type: application/json'
+{"ok": "sell order bfbd8605-4362-40c9-8512-bfc1e44a5929 placed"}davar@home ~/LABS/microservices-in-action/chapter7-k8s $
+```
