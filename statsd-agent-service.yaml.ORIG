@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.1.0 (36652f6)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: statsd-agent
+  name: statsd-agent
+spec:
+  ports:
+  - name: "8126"
+    port: 8126
+    targetPort: 8125
+  selector:
+    io.kompose.service: statsd-agent
+status:
+  loadBalancer: {}
