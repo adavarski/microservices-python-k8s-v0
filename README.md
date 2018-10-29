@@ -1,5 +1,25 @@
 App for the Microservices 
 
+```
+Edit Dockerfiles
+
+FROM python:3.6-onbuild
+
+EXPOSE 5000
+
+CMD [ "nameko", "run", "--config", "config.yml", "app" ]
+
+to
+
+FROM python:3.6-onbuild
+ADD . /usr/src/app
+WORKDIR /usr/src/app
+RUN pip install -r requirements.txt
+CMD [ "nameko", "run", "--config", "config.yml", "app" ]
+EXPOSE 5000
+```
+
+
 Edit services/config.yaml
 ```
 AMQP_URI: amqp://${RABBIT_USER:guest}:${RABBIT_PASSWORD:guest}@${RABBIT_HOST:rabbitmq}:${RABBIT_PORT:5673}/
