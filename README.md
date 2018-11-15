@@ -135,7 +135,7 @@ $ curl -X POST http://`minikube ip`:30623/shares/sell -H 'cache-control: no-cach
 ```
 
 ```
-Rancher 
+Rancher : RKC deploy
 
 $ sudo mkdir -p /vagrant/rancher_db
 $ docker run -d -v /vagrant/rancher_db/mysql/:/var/lib/mysql --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher:v2.0.5
